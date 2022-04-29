@@ -1,0 +1,68 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "3585e05fded49950af4b673cafb46b66",
+    "packages": [
+        {
+            "name": "pirsch-analytics/sdk",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pirsch-analytics/pirsch-php-sdk.git",
+                "reference": "1efca7183b0f5c844c4546a5663f1330b0a3dd58"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pirsch-analytics/pirsch-php-sdk/zipball/1efca7183b0f5c844c4546a5663f1330b0a3dd58",
+                "reference": "1efca7183b0f5c844c4546a5663f1330b0a3dd58",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pirsch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marvin Blum",
+                    "email": "marvin.blum@emvi.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Client SDK for Pirsch.",
+            "homepage": "https://pirsch.io/",
+            "keywords": [
+                "analytics",
+                "api",
+                "client",
+                "pirsch",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/pirsch-analytics/pirsch-php-sdk/issues",
+                "source": "https://github.com/pirsch-analytics/pirsch-php-sdk/tree/v1.5.0"
+            },
+            "time": "2022-04-10T10:13:30+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

@@ -1,0 +1,20 @@
+{
+    "name": "pirsch-analytics/proxy",
+    "description": "A self-hosted proxy server for the Pirsch Analytics JavaScript snippet.",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "PirschAnalytics\\Proxy\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marvin Blum",
+            "email": "marvin.blum@emvi.com"
+        }
+    ],
+    "require": {
+        "pirsch-analytics/sdk": "^1.5"
+    }
+}
