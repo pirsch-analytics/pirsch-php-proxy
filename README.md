@@ -1,4 +1,4 @@
-# pirsch-php-proxy
+# Pirsch PHP Proxy
 
 A self-hosted proxy for the Pirsch Analytics JavaScript snippet.
 
