@@ -2,9 +2,15 @@
 
 A self-hosted proxy for the Pirsch Analytics JavaScript snippet.
 
+## Why should I use a proxy?
+
+The benefit of using a proxy is that your website will only make first-party requests. The JavaScript snippets are hosted on your own server. Requests to pirsch.io will be proxied through your server, preventing them from being blocked by ad blockers.
+
+Additionally, you can create rollup views and send data to multiple dashboards with a single request on the client.
+
 ## Installation
 
-Download the latest release archive from the release section on GitHub and extract it on your server. Adjust the `pirsch/config.php` file to your needs.
+Download the latest release archive from the release section on GitHub and extract it onto your server. Adjust the `pirsch/config.php` file to your needs.
 
 ```php
 <?php
@@ -23,7 +29,7 @@ return (object) array(
 
 `clients` takes a list of API clients. You can create a new client ID and secret on the Pirsch dashboard on the developer settings page. The hostname needs to match the hostname you have configured on the dashboard.
 
-The proxy will send all page views and events to all clients configured. So if you would like to send the statistics to two dashboards, you can add another client by appending it to the list.
+The proxy will send all page views and events to all clients configured. So, if you would like to send the statistics to two dashboards, you can add another client by appending it to the list.
 
 ```php
 <?php
@@ -44,7 +50,7 @@ Clients can also be used across websites to create rollup views. To do this, dep
 
 ## Usage
 
-After you have installed the proxy on your server, you can add the Pirsch JavaScript snippet to your website. In the examples below the proxy is placed on your server in the `pirsch` directoy. If you have chosen a different directory or you don't use Apache, you might need to adjust the scripts with custom paths.
+After you have installed the proxy on your server, you can add the Pirsch JavaScript snippet to your website. In the examples below, the proxy is placed on your server in the `pirsch` directoy. If you have chosen a different directory or you don't use Apache, you might need to adjust the scripts with custom paths.
 
 **pirsch.min.js**
 
