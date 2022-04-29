@@ -1,6 +1,6 @@
 vendor/
 node_modules/
-v*/
+pirsch/
 pirsch.min.js
 pirsch-events.min.js
-v*.zip
+pirsch_*.zip
