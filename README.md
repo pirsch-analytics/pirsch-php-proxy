@@ -50,7 +50,7 @@ Clients can also be used across websites to create rollup views. To do this, dep
 
 ## Usage
 
-After you have installed the proxy on your server, you can add the Pirsch JavaScript snippet to your website. In the examples below, the proxy is placed on your server in the `pirsch` directoy. If you have chosen a different directory or you don't use Apache, you might need to adjust the scripts with custom paths.
+After you have installed the proxy on your server, you can add the Pirsch JavaScript snippet to your website. In the examples below, the proxy is placed on your server in the `pirsch` directory. If you have chosen a different directory, or you don't use Apache, you might need to adjust the scripts with custom paths.
 
 **pirsch.min.js**
 
