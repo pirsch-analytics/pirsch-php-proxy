@@ -18,7 +18,7 @@ Download the latest release archive from the release section on GitHub and extra
 return (object) array(
     'clients' => array(
         (object) array(
-            'id' => 'your-client-id',
+            'id' => 'your-client-id', // optional when using an access token instead of an oAuth client
             'secret' => 'your-client-secret',
             'hostname' => 'example.com'
         )
@@ -27,7 +27,7 @@ return (object) array(
 );
 ```
 
-`clients` takes a list of API clients. You can create a new client ID and secret on the Pirsch dashboard on the developer settings page. The hostname needs to match the hostname you have configured on the dashboard.
+`clients` takes a list of API clients. You can create a new client ID and secret on the Pirsch dashboard on the developer settings page. The ID is optional if you use an access token instead of an oAuth client. The hostname needs to match the hostname you have configured on the dashboard.
 
 The proxy will send all page views and events to all clients configured. So, if you would like to send the statistics to two dashboards, you can add another client by appending it to the list.
 
