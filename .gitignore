@@ -3,4 +3,5 @@ node_modules/
 pirsch/
 pirsch.min.js
 pirsch-events.min.js
+pirsch-sessions.min.js
 pirsch_*.zip

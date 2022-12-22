@@ -15,9 +15,11 @@ composer install
 cp -r vendor pirsch
 cp .htaccess pirsch
 cp config.php pirsch
+cp session.php pirsch
 cp event.php pirsch
 cp hit.php pirsch
 cp index.php pirsch
+cp pirsch-sessions.min.js pirsch
 cp pirsch-events.min.js pirsch
 cp pirsch.min.js pirsch
 cp proxy.php pirsch
