@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52c0ba0173e4b9f3ee2aa81f6e0f5e56",
+    "content-hash": "56941911481b0b9e709b1c7ac21bada0",
     "packages": [
         {
             "name": "pirsch-analytics/sdk",

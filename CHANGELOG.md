@@ -1,5 +1,9 @@
 ## Changelog
 
+## 1.5.0
+
+* updated dependencies
+
 ## 1.4.0
 
 * added session extension
