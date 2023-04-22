@@ -13,8 +13,6 @@ Additionally, you can create rollup views and send data to multiple dashboards w
 Download the latest release archive from the release section on GitHub and extract it onto your server. Adjust the `pirsch/config.php` file to your needs.
 
 ```php
-<?php
-
 return (object) array(
     'clients' => array(
         (object) array(
@@ -32,8 +30,6 @@ return (object) array(
 The proxy will send all page views and events to all clients configured. So, if you would like to send the statistics to two dashboards, you can add another client by appending it to the list.
 
 ```php
-<?php
-
 return (object) array(
     'clients' => array(
         (object) array(
@@ -102,8 +98,6 @@ A demo can be found in the [demo](demo) directory.
 The `config.php` takes a `baseURL` parameter to configure a local Pirsch mock implementation.
 
 ```php
-<?php
-
 return (object) array(
     'baseURL' => 'http://localhost:8080',
     // ...
