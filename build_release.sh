@@ -9,6 +9,7 @@ fi
 
 mkdir -p pirsch
 composer install
+rm -r p/scripts
 cp -r vendor pirsch
 cp .htaccess pirsch
 cp config.php pirsch
