@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 function sendHit() {
     try {
-        $config = include('config.php');
+        $config = include('../config.php');
         $data = new Pirsch\HitOptions;
         $data->url = $_GET['url'];
         $data->title = $_GET['t'];
@@ -13,7 +13,7 @@ function sendHit() {
         $baseURL = property_exists($config, 'baseURL') ? $config->baseURL : Pirsch\Client::DEFAULT_BASE_URL;
 
         foreach ($config->clients as $client) {
-            $client = new Pirsch\Client($client->id, $client->secret, $client->hostname, $baseURL);
+            $client = new Pirsch\Client($client->id, $client->secret, $baseURL);
             $client->pageview($data);
         }
     } catch (Exception $e) {
@@ -24,7 +24,7 @@ function sendHit() {
 
 function sendEvent() {
     try {
-        $config = include('config.php');
+        $config = include('../config.php');
         $body = json_decode(file_get_contents('php://input'), true);
         $data = new Pirsch\HitOptions;
         $data->url = $body['url'];
@@ -38,7 +38,7 @@ function sendEvent() {
         $baseURL = property_exists($config, 'baseURL') ? $config->baseURL : Pirsch\Client::DEFAULT_BASE_URL;
 
         foreach ($config->clients as $client) {
-            $client = new Pirsch\Client($client->id, $client->secret, $client->hostname, $baseURL);
+            $client = new Pirsch\Client($client->id, $client->secret, $baseURL);
             $client->event($eventName, $eventDuration, $eventMeta, $data);
         }
     } catch (Exception $e) {
@@ -49,11 +49,11 @@ function sendEvent() {
 
 function extendSession() {
     try {
-        $config = include('config.php');
+        $config = include('../config.php');
         $baseURL = property_exists($config, 'baseURL') ? $config->baseURL : Pirsch\Client::DEFAULT_BASE_URL;
 
         foreach ($config->clients as $client) {
-            $client = new Pirsch\Client($client->id, $client->secret, $client->hostname, $baseURL);
+            $client = new Pirsch\Client($client->id, $client->secret, $baseURL);
             $client->session();
         }
     } catch (Exception $e) {
