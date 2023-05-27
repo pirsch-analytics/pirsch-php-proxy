@@ -8,4 +8,16 @@ return (object) array(
         ),
         // (object) array(...)
     )
+    // Optional list of allowed subnets (CIRD).
+    /*'allowedSubnets' => array(
+        '10.0.0.0/8'
+    ),*/
+    // Optional list of allowed headers to read the IP address.
+    /*'ipHeader' => array(
+        'CF-Connecting-IP',
+        'True-Client-IP',
+        'X-Forwarded-For',
+        'Forwarded',
+        'X-Real-IP'
+    )*/
 );

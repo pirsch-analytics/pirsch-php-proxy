@@ -5,6 +5,7 @@ function sendHit() {
     try {
         $config = include('../config.php');
         $data = new Pirsch\HitOptions;
+        $data->ip = getIP($config);
         $data->url = $_GET['url'];
         $data->title = $_GET['t'];
         $data->referrer = $_GET['ref'];
@@ -27,6 +28,7 @@ function sendEvent() {
         $config = include('../config.php');
         $body = json_decode(file_get_contents('php://input'), true);
         $data = new Pirsch\HitOptions;
+        $data->ip = getIP($config);
         $data->url = $body['url'];
         $data->title = $body['title'];
         $data->referrer = $body['referrer'];
@@ -60,4 +62,127 @@ function extendSession() {
         http_response_code(500);
         error_log($e->getMessage());
     }
+}
+
+function getIP($config) {
+    $ip = cleanIP($_SERVER['REMOTE_ADDR']);
+
+    if (isset($config->allowedSubnets) && !validProxySource($ip, $config->allowedSubnets)) {
+        return $ip;
+    }
+
+    if (isset($config->ipHeader)) {
+        foreach ($config->ipHeader as $header) {
+            $parsedIP = '';
+
+            switch ($header) {
+                case 'CF-Connecting-IP':
+                    $parsedIP = parseXForwardedForHeader($_SERVER['HTTP_CF_CONNECTING_IP']);
+                    break;
+                case 'True-Client-IP':
+                    $parsedIP = parseXForwardedForHeader($_SERVER['HTTP_TRUE_CLIENT_IP']);
+                    break;
+                case 'X-Forwarded-For':
+                    $parsedIP = parseXForwardedForHeader($_SERVER['HTTP_X_FORWARDED_FOR']);
+                    break;
+                case 'Forwarded':
+                    $parsedIP = parseForwardedHeader($_SERVER['HTTP_FORWARDED']);
+                    break;
+                case 'X-Real-IP':
+                    $parsedIP = parseXRealIPHeader($_SERVER['HTTP_X_REAL_IP']);
+                    break;
+            }
+
+            if (!empty($parsedIP)) {
+                return $parsedIP;
+            }
+        }
+    }
+
+    return $ip;
+}
+
+function cleanIP($ip) {
+    if str_contains($ip, ':') {
+        $parts = explode(':', $ip, 1);
+        return $parts[0];
+    }
+
+    return $ip;
+}
+
+function validProxySource($ip, $allowedSubnets) {
+    // TODO
+    /*
+    ip := net.ParseIP(address)
+
+    if ip == nil {
+        return false
+    }
+
+    for _, from := range allowed {
+        if from.Contains(ip) {
+            return true
+        }
+    }
+
+    return false
+    */
+    return true;
+}
+
+function parseForwardedHeader($value) {
+    $parts = explode(',', $value);
+
+    if count($parts) > 0 {
+        $parts = explode(';', substr($parts[count($parts)-1]));
+
+        foreach ($parts as $part) {
+            $kv = explode('=', $part);
+
+            if count($kv) == 2 && trim($kv[0]) == 'for' {
+                $ip = cleanIP($kv[1]);
+
+                if (isValidIP($ip)) {
+                    return $ip;
+                }
+            }
+        }
+    }
+
+    return '';
+}
+
+function parseXForwardedForHeader($value) {
+    $parts = explode(',', $value);
+
+    if count($parts) > 0 {
+        $ip = cleanIP(trim($parts[count($parts)-1]));
+
+        if (isValidIP($ip)) {
+            return $ip;
+        }
+    }
+
+    return '';
+}
+
+function parseXRealIPHeader($value) {
+    $ip = cleanIP(trim($value));
+
+    if (isValidIP($ip)) {
+        return $ip;
+    }
+
+    return '';
+}
+
+function isValidIP($value) {
+    // TODO
+	/*ip := net.ParseIP(value)
+	return ip != nil &&
+		!ip.IsPrivate() &&
+		!ip.IsLoopback() &&
+		!ip.IsUnspecified()*/
+    return true;
 }
