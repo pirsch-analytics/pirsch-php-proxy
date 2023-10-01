@@ -1,5 +1,10 @@
 ## Changelog
 
+## 1.6.0
+
+* added support for client hints
+* updated dependencies
+
 ## 1.5.0
 
 * updated dependencies

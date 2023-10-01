@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/pirsch-analytics/pirsch-php-proxy#readme",
   "dependencies": {
-    "esbuild": "^0.17.10"
+    "esbuild": "^0.19.4"
   }
 }
