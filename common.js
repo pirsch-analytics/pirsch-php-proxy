@@ -1,15 +1,49 @@
 export function getScript(id) {
     const script = document.querySelector(id);
 
-    if(!script) {
+    if (!script) {
         throw `Pirsch script ${id} tag not found!`;
     }
 
     return script;
 }
 
+export function getPathOrTitleSuffixOrPrefix(list, index) {
+    let entry = "";
+
+    if (list.length > 0) {
+        if (index < list.length) {
+            entry = list[index];
+        } else {
+            entry = list[list.length-1];
+        }
+    }
+
+    return entry;
+}
+
+export function getTags(script) {
+    const tags = {};
+
+    for (const attribute of script.attributes) {
+        if (attribute.name.startsWith("data-tag-")) {
+            tags[attribute.name.substring("data-tag-".length).replaceAll("-", " ")] = attribute.value || "1";
+        } else if (attribute.name.startsWith("data-tag") && attribute.value) {
+            attribute.value.split(",").forEach(t => {
+                t = t.trim().replaceAll("-", " ");
+
+                if (t) {
+                    tags[t] = "1";
+                }
+            });
+        }
+    }
+
+    return tags;
+}
+
 export function ignore(script) {
-    return dnt() || isLocalhost(script) || !includePage(script) || excludePage(script);
+    return localStorage.getItem("disable_pirsch") || isLocalhost(script) || !includePage(script) || excludePage(script);
 }
 
 export function rewriteHostname(hostname) {
@@ -22,6 +56,38 @@ export function rewriteHostname(hostname) {
     return hostname;
 }
 
+export function rewritePath(url, prefix, suffix) {
+    if (!url) {
+        url = location.href;
+    }
+
+    if (!prefix) {
+        prefix = "";
+    }
+
+    if (!suffix) {
+        suffix = "";
+    }
+
+    const u = new URL(url);
+    u.pathname = prefix+u.pathname+suffix;
+    return u.toString();
+}
+
+export function rewriteTitle(prefix, suffix) {
+    let title = document.title;
+
+    if (!prefix) {
+        prefix = "";
+    }
+
+    if (!suffix) {
+        suffix = "";
+    }
+
+    return prefix+title+suffix;
+}
+
 export function rewriteReferrer(hostname) {
     let referrer = document.referrer;
 
@@ -30,10 +96,6 @@ export function rewriteReferrer(hostname) {
     }
 
     return referrer;
-}
-
-function dnt() {
-    return navigator.doNotTrack === "1" || localStorage.getItem("disable_pirsch");
 }
 
 function isLocalhost(script) {

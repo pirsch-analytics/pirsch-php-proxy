@@ -22,6 +22,7 @@ cp index.php pirsch
 cp pirsch-sessions.min.js pirsch
 cp pirsch-events.min.js pirsch
 cp pirsch.min.js pirsch
+cp pa.min.js pirsch
 cp proxy.php pirsch
 
 zip -r "pirsch_proxy_v$1.zip" pirsch

@@ -1,5 +1,11 @@
 ## Changelog
 
+## 1.7.0
+
+* added pa.js
+* removed DNT
+* updated dependencies
+
 ## 1.6.0
 
 * added support for client hints

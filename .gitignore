@@ -1,6 +1,7 @@
 vendor/
 node_modules/
 pirsch/
+pa.min.js
 pirsch.min.js
 pirsch-events.min.js
 pirsch-sessions.min.js

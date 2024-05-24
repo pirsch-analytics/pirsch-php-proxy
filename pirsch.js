@@ -1,66 +1,40 @@
-import {getScript, ignore, rewriteHostname, rewriteReferrer} from "./common";
+import {getScript, ignore} from "./common";
+import {addPageViews} from "./pageviews";
 
 (function () {
     "use strict";
 
     const script = getScript("#pirschjs");
 
-    if(ignore(script)) {
+    if (ignore(script) || document.querySelector("#pirschextendedjs")) {
         return;
     }
 
-    // register hit function
-    const endpoint = script.getAttribute("data-endpoint") || "/pirsch/hit";
-    const clientID = script.getAttribute("data-client-id") || 0;
+    const endpoint = script.getAttribute("data-endpoint") || "https://api.pirsch.io/hit";
+    const identificationCode = script.getAttribute("data-code") || "not-set";
     const domains = script.getAttribute("data-domain") ? script.getAttribute("data-domain").split(",") || [] : [];
     const disableQueryParams = script.hasAttribute("data-disable-query");
     const disableReferrer = script.hasAttribute("data-disable-referrer");
     const disableResolution = script.hasAttribute("data-disable-resolution");
+    const disableHistory = script.hasAttribute("data-disable-history");
     const rewrite = script.getAttribute("data-dev");
-
-    function hit() {
-        sendHit(rewrite);
-
-        for (let i = 0; i < domains.length; i++) {
-            sendHit(domains[i]);
-        }
-    }
-
-    function sendHit(hostname) {
-        const referrer = rewriteReferrer(hostname);
-        hostname = rewriteHostname(hostname);
-
-        if (disableQueryParams) {
-            hostname = (hostname.includes('?') ? hostname.split('?')[0] : hostname);
-        }
-
-        const url = endpoint +
-            "?nc=" + new Date().getTime() +
-            "&client_id=" + clientID +
-            "&url=" + encodeURIComponent(hostname.substring(0, 1800)) +
-            "&t=" + encodeURIComponent(document.title) +
-            "&ref=" + (disableReferrer ? '' : encodeURIComponent(referrer)) +
-            "&w=" + (disableResolution ? '' : screen.width) +
-            "&h=" + (disableResolution ? '' : screen.height);
-        const req = new XMLHttpRequest();
-        req.open("GET", url);
-        req.send();
-    }
-
-    if (history.pushState) {
-        const pushState = history["pushState"];
-
-        history.pushState = function () {
-            pushState.apply(this, arguments);
-            hit();
-        }
-
-        window.addEventListener("popstate", hit);
-    }
-
-    if (!document.body) {
-        window.addEventListener("DOMContentLoaded", hit);
-    } else {
-        hit();
-    }
+    const pathPrefix = script.getAttribute("data-path-prefix") ? script.getAttribute("data-path-prefix").split(",") || [] : [];
+    const pathSuffix = script.getAttribute("data-path-suffix") ? script.getAttribute("data-path-suffix").split(",") || [] : [];
+    const titlePrefix = script.getAttribute("data-title-prefix") ? script.getAttribute("data-title-prefix").split(",") || [] : [];
+    const titleSuffix = script.getAttribute("data-title-suffix") ? script.getAttribute("data-title-suffix").split(",") || [] : [];
+    addPageViews({
+        script,
+        domains,
+        rewrite,
+        pathPrefix,
+        pathSuffix,
+        titlePrefix,
+        titleSuffix,
+        identificationCode,
+        endpoint,
+        disableQueryParams,
+        disableReferrer,
+        disableResolution,
+        disableHistory
+    });
 })();
