@@ -1,5 +1,13 @@
 ## Changelog
 
+## 2.0.0
+
+* added pa.js and removed old scripts
+* latest JavaScript files are now downloaded from pirsch.io
+* scripts now use paths without keywords blocked by ad blockers
+* removed hostname from configuration
+* updated dependencies
+
 ## 1.7.0
 
 * added pa.js
