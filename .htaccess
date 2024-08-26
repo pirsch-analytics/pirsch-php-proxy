@@ -1,4 +1,0 @@
-RewriteEngine on
-RewriteRule /pirsch/hit /pirsch/hit.php
-RewriteRule /pirsch/event /pirsch/event.php
-RewriteRule /pirsch/session /pirsch/session.php
