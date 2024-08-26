@@ -1,0 +1,24 @@
+{
+    "name": "pirsch-analytics/sdk",
+    "type": "library",
+    "description": "PHP Client SDK for Pirsch.",
+    "keywords": ["pirsch", "analytics", "sdk", "client", "api"],
+    "homepage": "https://pirsch.io/",
+    "license": "MIT",
+    "authors": [
+    	{
+    		"name": "Marvin Blum",
+    		"email": "marvin.blum@emvi.com",
+    		"role": "Developer"
+    	}
+    ],
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pirsch\\":"src/"
+        }
+    }
+}

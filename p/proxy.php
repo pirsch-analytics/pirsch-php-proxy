@@ -67,7 +67,8 @@ function extendSession() {
 function getIP($config) {
     $ip = cleanIP($_SERVER['REMOTE_ADDR']);
 
-    if (isset($config->allowedSubnets) && !validProxySource($ip, $config->allowedSubnets)) {
+    // TODO
+    /*if (isset($config->allowedSubnets) && !validProxySource($ip, $config->allowedSubnets)) {
         return $ip;
     }
 
@@ -97,7 +98,7 @@ function getIP($config) {
                 return $parsedIP;
             }
         }
-    }
+    }*/
 
     return $ip;
 }
@@ -111,9 +112,8 @@ function cleanIP($ip) {
     return $ip;
 }
 
-function validProxySource($ip, $allowedSubnets) {
-    // TODO
-    /*
+// TODO
+/*function validProxySource($ip, $allowedSubnets) {
     ip := net.ParseIP(address)
 
     if ip == nil {
@@ -126,9 +126,7 @@ function validProxySource($ip, $allowedSubnets) {
         }
     }
 
-    return false
-    */
-    return true;
+    return false;
 }
 
 function parseForwardedHeader($value) {
@@ -167,6 +165,28 @@ function parseXForwardedForHeader($value) {
     return '';
 }
 
+func parseXForwardedForHeaderFirst(value string) string {
+	parts := strings.Split(value, ",")
+
+	if len(parts) > 1 {
+		ip := parts[0]
+
+		if strings.Contains(ip, ":") {
+			host, _, err := net.SplitHostPort(ip)
+
+			if err != nil {
+				return ip
+			}
+
+			return strings.TrimSpace(host)
+		}
+
+		return strings.TrimSpace(ip)
+	}
+
+	return ""
+}
+
 function parseXRealIPHeader($value) {
     $ip = cleanIP(trim($value));
 
@@ -178,11 +198,9 @@ function parseXRealIPHeader($value) {
 }
 
 function isValidIP($value) {
-    // TODO
-	/*ip := net.ParseIP(value)
+	ip := net.ParseIP(value)
 	return ip != nil &&
 		!ip.IsPrivate() &&
 		!ip.IsLoopback() &&
-		!ip.IsUnspecified()*/
-    return true;
-}
+		!ip.IsUnspecified()
+}*/

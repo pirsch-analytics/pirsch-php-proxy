@@ -2,12 +2,21 @@
 
 ## 2.0.0
 
-* added pirsch-extended.js
-* add trusted header configuration
-* add trusted subnet configuration
+* added pa.js and removed old scripts
 * latest JavaScript files are now downloaded from pirsch.io
 * scripts now use paths without keywords blocked by ad blockers
 * removed hostname from configuration
+* updated dependencies
+
+## 1.7.0
+
+* added pa.js
+* removed DNT
+* updated dependencies
+
+## 1.6.0
+
+* added support for client hints
 * updated dependencies
 
 ## 1.5.0

@@ -1,4 +1,4 @@
 <?php
 require_once 'scripts.php';
 
-serveFile('pirsch.js');
+serveFile('pa.js');
