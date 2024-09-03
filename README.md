@@ -14,6 +14,7 @@ Download the latest release archive from the releases section on GitHub and extr
 
 ```php
 return (object) array(
+    'ipHeader' => array('X-Forwarded-For', 'CF-Connecting-IP', 'TRUE-CLIENT-IP', 'X-REAL-IP'), // optional lists of header to parse the visitor's IP address
     'clients' => array(
         (object) array(
             //'id' => 'your-client-id',

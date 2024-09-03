@@ -52,11 +52,13 @@ function sendEvent() {
 function extendSession() {
     try {
         $config = include('../config.php');
+        $data = new Pirsch\HitOptions;
+        $data->ip = getIP($config);
         $baseURL = property_exists($config, 'baseURL') ? $config->baseURL : Pirsch\Client::DEFAULT_BASE_URL;
 
         foreach ($config->clients as $client) {
             $client = new Pirsch\Client($client->id, $client->secret, $baseURL);
-            $client->session();
+            $client->session($data);
         }
     } catch (Exception $e) {
         http_response_code(500);
@@ -65,31 +67,21 @@ function extendSession() {
 }
 
 function getIP($config) {
-    $ip = cleanIP($_SERVER['REMOTE_ADDR']);
-
-    // TODO
-    /*if (isset($config->allowedSubnets) && !validProxySource($ip, $config->allowedSubnets)) {
-        return $ip;
-    }
-
     if (isset($config->ipHeader)) {
         foreach ($config->ipHeader as $header) {
             $parsedIP = '';
 
-            switch ($header) {
-                case 'CF-Connecting-IP':
+            switch (strtolower($header)) {
+                case 'cf-connecting-ip':
                     $parsedIP = parseXForwardedForHeader($_SERVER['HTTP_CF_CONNECTING_IP']);
                     break;
-                case 'True-Client-IP':
+                case 'true-client-ip':
                     $parsedIP = parseXForwardedForHeader($_SERVER['HTTP_TRUE_CLIENT_IP']);
                     break;
-                case 'X-Forwarded-For':
+                case 'x-forwarded-for':
                     $parsedIP = parseXForwardedForHeader($_SERVER['HTTP_X_FORWARDED_FOR']);
                     break;
-                case 'Forwarded':
-                    $parsedIP = parseForwardedHeader($_SERVER['HTTP_FORWARDED']);
-                    break;
-                case 'X-Real-IP':
+                case 'x-real-ip':
                     $parsedIP = parseXRealIPHeader($_SERVER['HTTP_X_REAL_IP']);
                     break;
             }
@@ -98,109 +90,38 @@ function getIP($config) {
                 return $parsedIP;
             }
         }
-    }*/
+    }
 
-    return $ip;
+    return cleanIP($_SERVER['REMOTE_ADDR']);
+}
+
+function parseXForwardedForHeader($value) {
+    if (!isset($value)) {
+        return '';
+    }
+
+    $parts = explode(',', $value);
+
+    if (count($parts) > 0) {
+        return cleanIP(trim($parts[0]));
+    }
+
+    return '';
+}
+
+function parseXRealIPHeader($value) {
+    if (!isset($value)) {
+        return '';
+    }
+
+    return cleanIP(trim($value));
 }
 
 function cleanIP($ip) {
-    if str_contains($ip, ':') {
+    if (str_contains($ip, ':')) {
         $parts = explode(':', $ip, 1);
         return $parts[0];
     }
 
     return $ip;
 }
-
-// TODO
-/*function validProxySource($ip, $allowedSubnets) {
-    ip := net.ParseIP(address)
-
-    if ip == nil {
-        return false
-    }
-
-    for _, from := range allowed {
-        if from.Contains(ip) {
-            return true
-        }
-    }
-
-    return false;
-}
-
-function parseForwardedHeader($value) {
-    $parts = explode(',', $value);
-
-    if count($parts) > 0 {
-        $parts = explode(';', substr($parts[count($parts)-1]));
-
-        foreach ($parts as $part) {
-            $kv = explode('=', $part);
-
-            if count($kv) == 2 && trim($kv[0]) == 'for' {
-                $ip = cleanIP($kv[1]);
-
-                if (isValidIP($ip)) {
-                    return $ip;
-                }
-            }
-        }
-    }
-
-    return '';
-}
-
-function parseXForwardedForHeader($value) {
-    $parts = explode(',', $value);
-
-    if count($parts) > 0 {
-        $ip = cleanIP(trim($parts[count($parts)-1]));
-
-        if (isValidIP($ip)) {
-            return $ip;
-        }
-    }
-
-    return '';
-}
-
-func parseXForwardedForHeaderFirst(value string) string {
-	parts := strings.Split(value, ",")
-
-	if len(parts) > 1 {
-		ip := parts[0]
-
-		if strings.Contains(ip, ":") {
-			host, _, err := net.SplitHostPort(ip)
-
-			if err != nil {
-				return ip
-			}
-
-			return strings.TrimSpace(host)
-		}
-
-		return strings.TrimSpace(ip)
-	}
-
-	return ""
-}
-
-function parseXRealIPHeader($value) {
-    $ip = cleanIP(trim($value));
-
-    if (isValidIP($ip)) {
-        return $ip;
-    }
-
-    return '';
-}
-
-function isValidIP($value) {
-	ip := net.ParseIP(value)
-	return ip != nil &&
-		!ip.IsPrivate() &&
-		!ip.IsLoopback() &&
-		!ip.IsUnspecified()
-}*/

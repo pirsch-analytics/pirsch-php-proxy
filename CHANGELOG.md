@@ -1,5 +1,10 @@
 ## Changelog
 
+## 2.1.0
+
+* added support to extract IPs from header
+* added IP address to extend session
+
 ## 2.0.0
 
 * added pa.js and removed old scripts
