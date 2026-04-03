@@ -8,5 +8,8 @@ return (object) array(
             'secret' => 'your-client-secret or access-key'
         ),
         // (object) array(...)
-    )
+    ),
+    'allowedOrigins' => array(
+        // 'https://your-domain.com'
+    ),
 );
