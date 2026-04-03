@@ -3,6 +3,7 @@
 ## 2.2.0
 
 * added CORS header configuration
+* updated dependencies
 
 ## 2.1.0
 
