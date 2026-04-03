@@ -21,6 +21,9 @@ return (object) array(
             'secret' => 'your-client-secret'
         )
         // add more clients here
+    ),
+    'allowedOrigins' => array( // allowed origins for CORS
+        '*' // allow all or add your domains like 'https://your-domain.com'
     )
 );
 ```

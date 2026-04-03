@@ -1,5 +1,9 @@
 ## Changelog
 
+## 2.2.0
+
+* added CORS header configuration
+
 ## 2.1.0
 
 * added support to extract IPs from header

@@ -10,6 +10,7 @@ return (object) array(
         // (object) array(...)
     ),
     'allowedOrigins' => array(
-        // 'https://your-domain.com'
-    ),
+        '*'
+        // or 'https://your-domain.com' for example
+    )
 );
