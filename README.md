@@ -60,6 +60,8 @@ Here is an example with the default configuration.
     data-session-endpoint="/p/s.php"></script>
 ```
 
+As the proxy uses `fopen` to fetch the necessary files via the Pirsch.io API, make sure to enable the [`allow_url_fopen`](https://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen) option. For some shared hosting providers (like Hetzner), this option is disabled per default.
+
 ## Local development
 
 The `config.php` takes a `baseURL` parameter to configure a local Pirsch mock implementation.
